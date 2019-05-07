@@ -79,7 +79,7 @@ public class calculator {
 				System.err.println("Input is not a valid double");
 			}
 		}
-		return number;
+		return number;    
 	}
 	public static double add(double num1 , double num2) {
 		
