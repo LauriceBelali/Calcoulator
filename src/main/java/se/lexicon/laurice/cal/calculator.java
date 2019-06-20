@@ -1,5 +1,6 @@
 package se.lexicon.laurice.cal;
 
+import java.security.InvalidParameterException;
 import java.util.Scanner;
 
 public class calculator {
@@ -7,52 +8,52 @@ public class calculator {
 	static String op;
 	static Scanner scan = new Scanner(System.in);
 
-	static double num1;
-	static double num2;
+	static int num1;
+	static int num2;
 	static double ans;
 
 	static Scanner input = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		boolean run = false;
-
+		
 		do {
-
-			System.out.println("C hoose + for addition. - for substaction. * for multiplication. / for division");
+			System.out.println("Choose + for addition. - for substaction. * for multiplication. / for division");
 			System.out.println("Put your opretor");
 			op = scan.nextLine();
+
 			System.out.println("Put first number");
-			num1 = getValidDouble();
+			num1 = (int) getValidDouble();
 			System.out.println("Put secound number");
-			num2 = getValidDouble();
+			num2 = (int) getValidDouble();
 			switch (op) {
 			case "+":
-				ans = add(num1,num2);
+				ans = add(num1, num2);
 				break;
 			case "-":
-				ans = num1 - num2;
+				ans = sub(num1, num2);
 				break;
 			case "*":
-				ans = num1 * num2;
+				ans = mult(num1, num2);
 				break;
 			case "/":
-				if (num1 == 0 || num2 == 0) {
-					System.out.println("You cant divid by 0");
-					ans = 0;
-				} else {
-					ans = num1 / num2;
-				}
+				ans = div(num1, num2);
 				break;
 			default:
 				System.out.println("Not valid opretor");
 				break;
 			}
 			System.out.println("Result = " + ans);
-			System.out.println("Type YES to continue");
+			System.out.println("Type Yes+ to continue");
+			System.out.println("Type no + to good bye");
 			String answer = input.nextLine().toLowerCase();
 			switch (answer) {
 			case "yes":
 				run = true;
+				break;
+
+			case "no":
+				run = false;
 				break;
 			default:
 				run = false;
@@ -60,6 +61,7 @@ public class calculator {
 			}
 
 		} while (run);
+
 		input.close();
 		System.out.println("Good bye");
 
@@ -79,11 +81,33 @@ public class calculator {
 				System.err.println("Input is not a valid double");
 			}
 		}
-		return number;    
+		return number;
 	}
-	public static double add(double num1 , double num2) {
+
+	public static double add(double num1, double num2) {
+
+		return num1 + num2;
+
+	}
+
+	public static double sub(double num1, double num2) {
+
+		return num1 - num2;
+	}
+
+	public static double mult(double num1, double num2) {
+
+		return num1 * num2;
+
+	}
+
+	public static double div(double num1, double num2) {
 		
-		return num1+num2;
+		if(num1 >0 && num2 >0) {
+			return num1 / num2;
+		}
 		
+		throw new InvalidParameterException("You cant divide by 0");
+
 	}
 }
